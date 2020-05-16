@@ -2,17 +2,18 @@ package com.stackhack.taskmanagement.services;
 
 import java.util.List;
 
-import com.stackhack.taskmanagement.models.entity.Task;
+import com.stackhack.taskmanagement.models.request.TaskRequest;
+import com.stackhack.taskmanagement.models.response.TaskResponse;
 
 public interface TaskService {
 
-public List<Task> getAllTask();
+public List<TaskResponse> getAllTask();
 	
-	public Task getTaskById(Long id);
+	public TaskResponse getTaskById(Long id);
 	
-	public String createTask(Task task);
+	public String createTask(TaskRequest taskRequest);
 	
-	public String modifyTask(Task task);	
+	public String modifyTask(TaskRequest taskRequest);	
 	
 	public String deleteTaskById(Long id);
 	
