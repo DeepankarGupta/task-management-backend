@@ -7,14 +7,14 @@ import com.stackhack.taskmanagement.models.response.TaskResponse;
 
 public interface TaskService {
 
-public List<TaskResponse> getAllTask();
-	
+	public List<TaskResponse> getAllTask();
+
 	public TaskResponse getTaskById(Long id);
-	
-	public String createTask(TaskRequest taskRequest);
-	
-	public String modifyTask(TaskRequest taskRequest);	
-	
-	public String deleteTaskById(Long id);
-	
+
+	public Long createTask(TaskRequest taskRequest);
+
+	public TaskResponse modifyTask(TaskRequest taskRequest);
+
+	public TaskResponse deleteTaskById(Long id);
+
 }

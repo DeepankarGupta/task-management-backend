@@ -1,6 +1,5 @@
 package com.stackhack.taskmanagement.models.entity;
 
-import java.time.LocalDate;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -8,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -30,6 +31,10 @@ public class Task {
 	@CreationTimestamp
 	@Column(name = "creation_date")
 	private Date creationDate;
+
+	@ManyToOne
+	@JoinColumn(name = "category_id")
+	private Category category;
 
 	public long getId() {
 		return Id;
@@ -70,5 +75,12 @@ public class Task {
 	public void setCreationDate(Date creationDate) {
 		this.creationDate = creationDate;
 	}
-	
+
+	public Category getCategory() {
+		return category;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
+	}
 }

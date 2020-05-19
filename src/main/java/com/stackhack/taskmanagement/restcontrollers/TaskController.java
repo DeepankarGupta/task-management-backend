@@ -16,35 +16,42 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.stackhack.taskmanagement.models.request.TaskRequest;
+import com.stackhack.taskmanagement.models.response.CustomResponse;
 import com.stackhack.taskmanagement.models.response.TaskResponse;
 import com.stackhack.taskmanagement.services.impl.TaskServiceImpl;
 
 @RestController
-@RequestMapping("/task")
+@RequestMapping("api/tasks")
 public class TaskController {
 	
 	@Autowired
 	private TaskServiceImpl taskService;
 	
 	@GetMapping
-	public ResponseEntity<List<TaskResponse>> getAllTask() {
-		return new ResponseEntity<List<TaskResponse>>(taskService.getAllTask(), HttpStatus.OK);
+	public ResponseEntity<CustomResponse<List<TaskResponse>>> getAllTask() {
+		List<TaskResponse> taskList = taskService.getAllTask();
+		CustomResponse<List<TaskResponse>> response = new CustomResponse<List<TaskResponse>>("", HttpStatus.OK, taskList, null);
+		return new ResponseEntity<CustomResponse<List<TaskResponse>>>(response, response.getHttpStatus());
 	}
 
 	@GetMapping("/{taskId}")
-	public TaskResponse getTask(@PathVariable Long taskId) {
-		return taskService.getTaskById(taskId);
+	public ResponseEntity<CustomResponse<TaskResponse>> getTask(@PathVariable Long taskId) {
+		TaskResponse taskResponse = taskService.getTaskById(taskId);
+		CustomResponse<TaskResponse> response = new CustomResponse<TaskResponse>("", HttpStatus.OK, taskResponse, null);
+		return new ResponseEntity<CustomResponse<TaskResponse>>(response, response.getHttpStatus());
 	}
 
 	@PostMapping
-	public ResponseEntity<String> addTask(@Valid @RequestBody TaskRequest taskRequest) {
-		return new ResponseEntity<String>(taskService.createTask(taskRequest), HttpStatus.CREATED);
+	public ResponseEntity<CustomResponse<Long>> addTask(@Valid @RequestBody TaskRequest taskRequest) {
+		Long taskId = taskService.createTask(taskRequest);
+		CustomResponse<Long> response = new CustomResponse<Long>("Task created succesfully", HttpStatus.CREATED, taskId, null);
+		return new ResponseEntity<CustomResponse<Long>>(response, response.getHttpStatus());
 	}
 
-	@PutMapping("/{id}")
-	public ResponseEntity<String> updateTask(@Valid @RequestBody TaskRequest taskRequest) {
-		return new ResponseEntity<String>(taskService.modifyTask(taskRequest), HttpStatus.CREATED);
+	@PutMapping("/{taskId}")
+	public ResponseEntity<CustomResponse<TaskResponse>> updateTask(@Valid @RequestBody TaskRequest taskRequest) {
+		TaskResponse taskResponse = taskService.modifyTask(taskRequest);
+		CustomResponse<TaskResponse> response = new CustomResponse<TaskResponse>("Task updated succesfully", HttpStatus.OK, taskResponse, null);
+		return new ResponseEntity<CustomResponse<TaskResponse>>(response, response.getHttpStatus());
 	}
-	
-
 }

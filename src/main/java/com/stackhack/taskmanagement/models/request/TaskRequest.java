@@ -3,17 +3,12 @@ package com.stackhack.taskmanagement.models.request;
 import java.util.Date;
 
 public class TaskRequest {
-	private long Id;
+	
 	private String taskName;
 	private String description;
 	private Date dueDate;
-	private Date creationDate;
-	public long getId() {
-		return Id;
-	}
-	public void setId(long id) {
-		Id = id;
-	}
+	private Long categoryId;
+	
 	public String getTaskName() {
 		return taskName;
 	}
@@ -32,12 +27,10 @@ public class TaskRequest {
 	public void setDueDate(Date dueDate) {
 		this.dueDate = dueDate;
 	}
-	public Date getCreationDate() {
-		return creationDate;
+	public Long getCategoryId() {
+		return categoryId;
 	}
-	public void setCreationDate(Date creationDate) {
-		this.creationDate = creationDate;
+	public void setCategoryId(Long categoryId) {
+		this.categoryId = categoryId;
 	}
-	
-
 }

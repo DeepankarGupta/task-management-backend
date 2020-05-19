@@ -9,6 +9,8 @@ public class TaskResponse {
 	private String description;
 	private Date dueDate;
 	private Date creationDate;
+	private CategoryResponse category;
+	
 	public long getId() {
 		return Id;
 	}
@@ -20,12 +22,6 @@ public class TaskResponse {
 	}
 	public void setTaskName(String taskName) {
 		this.taskName = taskName;
-	}
-	public String getdescription() {
-		return description;
-	}
-	public void setdescription(String description) {
-		this.description = description;
 	}
 	public Date getDueDate() {
 		return dueDate;
@@ -39,5 +35,16 @@ public class TaskResponse {
 	public void setCreationDate(Date creationDate) {
 		this.creationDate = creationDate;
 	}
-
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	public CategoryResponse getCategory() {
+		return category;
+	}
+	public void setCategory(CategoryResponse category) {
+		this.category = category;
+	}
 }
