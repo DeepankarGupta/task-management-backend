@@ -43,6 +43,7 @@ public class CategoryServiceImpl implements CategoryService {
 	public Long deleteCategory(Long categoryId) {
 		Optional<Category> category = categoryRepository.findById(categoryId);
 		category.orElseThrow(() -> new ResourceNotFoundException("Category with ID: " + categoryId + " does not exist"));
+		categoryRepository.deleteById(categoryId);
 		return category.get().getCatrgoryId();
 	}
 	

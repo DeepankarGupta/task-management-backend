@@ -35,7 +35,7 @@ public class CategoryController {
 		return new ResponseEntity<CustomResponse<Long>>(response, response.getHttpStatus());
 	}
 	
-	@PutMapping
+	@PutMapping("/{categoryId}")
 	public ResponseEntity<CustomResponse<CategoryResponse>> editCategory(@RequestBody CategoryRequest categoryRequest) {
 		CategoryResponse categoryResposne = categoryService.editCategory(categoryRequest);
 		CustomResponse<CategoryResponse> response = new CustomResponse<CategoryResponse>("Category edited successfully", HttpStatus.OK, categoryResposne, null);
