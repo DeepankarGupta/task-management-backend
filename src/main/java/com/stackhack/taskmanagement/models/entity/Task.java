@@ -12,6 +12,9 @@ import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import com.stackhack.taskmanagement.enums.TaskPriority;
+import com.stackhack.taskmanagement.enums.TaskStatus;
+
 @Entity
 public class Task {
 	
@@ -24,6 +27,12 @@ public class Task {
 	
 	@Column(name="task_desc",nullable = false,length = 100)
 	private String description;
+	
+	@Column(nullable = false)
+	private TaskStatus status;
+	
+	@Column(nullable = false)
+	private TaskPriority priority;
 	
 	@Column(name="due_date",nullable = false)
 	private Date dueDate;
@@ -58,6 +67,22 @@ public class Task {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+	
+	public TaskStatus getStatus() {
+		return status;
+	}
+
+	public void setStatus(TaskStatus status) {
+		this.status = status;
+	}
+
+	public TaskPriority getPriority() {
+		return priority;
+	}
+
+	public void setPriority(TaskPriority priority) {
+		this.priority = priority;
 	}
 
 	public Date getDueDate() {

@@ -2,11 +2,16 @@ package com.stackhack.taskmanagement.models.response;
 
 import java.util.Date;
 
+import com.stackhack.taskmanagement.enums.TaskPriority;
+import com.stackhack.taskmanagement.enums.TaskStatus;
+
 public class TaskResponse {
 	
 	private long Id;
 	private String taskName;
 	private String description;
+	private TaskStatus status;
+	private TaskPriority priority;
 	private Date dueDate;
 	private Date creationDate;
 	private CategoryResponse category;
@@ -40,6 +45,18 @@ public class TaskResponse {
 	}
 	public void setDescription(String description) {
 		this.description = description;
+	}
+	public TaskStatus getStatus() {
+		return status;
+	}
+	public void setStatus(TaskStatus status) {
+		this.status = status;
+	}
+	public TaskPriority getPriority() {
+		return priority;
+	}
+	public void setPriority(TaskPriority priority) {
+		this.priority = priority;
 	}
 	public CategoryResponse getCategory() {
 		return category;
