@@ -4,12 +4,16 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
+import com.stackhack.taskmanagement.enums.TaskStatus;
 import com.stackhack.taskmanagement.exceptions.ResourceNotFoundException;
 import com.stackhack.taskmanagement.models.entity.Category;
 import com.stackhack.taskmanagement.models.entity.Task;
+import com.stackhack.taskmanagement.models.request.NewTaskRequest;
 import com.stackhack.taskmanagement.models.request.TaskRequest;
 import com.stackhack.taskmanagement.models.response.TaskResponse;
 import com.stackhack.taskmanagement.repositories.CategoryRepository;
@@ -29,9 +33,12 @@ public class TaskServiceImpl implements TaskService {
 	@Autowired
 	private TaskUtil utility;
 	
+	@Autowired
+	private ModelMapper modelMapper;
+	
 	@Override
-	public List<TaskResponse> getAllTask() {
-		return repo.findAll().stream().map(utility::convertToResponse)
+	public List<TaskResponse> getAllTask(TaskStatus status) {
+		return repo.findByStatus(status).stream().map(utility::convertToResponse)
 				.collect(Collectors.toList());
 	}
 
@@ -44,8 +51,9 @@ public class TaskServiceImpl implements TaskService {
 	}
 
 	@Override
-	public Long createTask(TaskRequest taskRequest) {
-		Task task = utility.convertToEntity(taskRequest);
+	public Long createTask(NewTaskRequest taskRequest) {
+		Task task = modelMapper.map(taskRequest, Task.class);
+		task.setStatus(TaskStatus.TODO);
 		Optional<Category> category  = categoryRepository.findById(taskRequest.getCategoryId());
 		category.orElseThrow(() -> new ResourceNotFoundException("Category with ID: " + taskRequest.getCategoryId() + " does not exist"));
 		task.setCategory(category.get());

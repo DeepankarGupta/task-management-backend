@@ -13,8 +13,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.stackhack.taskmanagement.enums.TaskStatus;
+import com.stackhack.taskmanagement.models.request.NewTaskRequest;
 import com.stackhack.taskmanagement.models.request.TaskRequest;
 import com.stackhack.taskmanagement.models.response.CustomResponse;
 import com.stackhack.taskmanagement.models.response.TaskResponse;
@@ -28,9 +31,13 @@ public class TaskController {
 	private TaskServiceImpl taskService;
 	
 	@GetMapping
-	public ResponseEntity<CustomResponse<List<TaskResponse>>> getAllTask() {
-		List<TaskResponse> taskList = taskService.getAllTask();
-		CustomResponse<List<TaskResponse>> response = new CustomResponse<List<TaskResponse>>("", HttpStatus.OK, taskList, null);
+	public ResponseEntity<CustomResponse<List<TaskResponse>>> getAllTask(@RequestParam TaskStatus status) {
+		List<TaskResponse> taskList = taskService.getAllTask(status);
+		String message = "";
+		if(taskList.isEmpty()) {
+			message = "No Records Found!!";
+		}
+		CustomResponse<List<TaskResponse>> response = new CustomResponse<List<TaskResponse>>(message, HttpStatus.OK, taskList, null);
 		return new ResponseEntity<CustomResponse<List<TaskResponse>>>(response, response.getHttpStatus());
 	}
 
@@ -42,7 +49,7 @@ public class TaskController {
 	}
 
 	@PostMapping
-	public ResponseEntity<CustomResponse<Long>> addTask(@Valid @RequestBody TaskRequest taskRequest) {
+	public ResponseEntity<CustomResponse<Long>> addTask(@Valid @RequestBody NewTaskRequest taskRequest) {
 		Long taskId = taskService.createTask(taskRequest);
 		CustomResponse<Long> response = new CustomResponse<Long>("Task created succesfully", HttpStatus.CREATED, taskId, null);
 		return new ResponseEntity<CustomResponse<Long>>(response, response.getHttpStatus());

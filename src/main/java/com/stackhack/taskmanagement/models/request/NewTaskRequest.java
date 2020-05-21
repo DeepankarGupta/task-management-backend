@@ -3,24 +3,15 @@ package com.stackhack.taskmanagement.models.request;
 import java.util.Date;
 
 import com.stackhack.taskmanagement.enums.TaskPriority;
-import com.stackhack.taskmanagement.enums.TaskStatus;
 
-public class TaskRequest {
+public class NewTaskRequest {
 	
-	private long Id;
 	private String taskName;
 	private String description;
-	private TaskStatus status;
-	private TaskPriority priority;
 	private Date dueDate;
 	private Long categoryId;
+	private TaskPriority priority;
 	
-	public long getId() {
-		return Id;
-	}
-	public void setId(long id) {
-		Id = id;
-	}
 	public String getTaskName() {
 		return taskName;
 	}
@@ -33,18 +24,6 @@ public class TaskRequest {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public TaskStatus getStatus() {
-		return status;
-	}
-	public void setStatus(TaskStatus status) {
-		this.status = status;
-	}
-	public TaskPriority getPriority() {
-		return priority;
-	}
-	public void setPriority(TaskPriority priority) {
-		this.priority = priority;
-	}
 	public Date getDueDate() {
 		return dueDate;
 	}
@@ -56,5 +35,11 @@ public class TaskRequest {
 	}
 	public void setCategoryId(Long categoryId) {
 		this.categoryId = categoryId;
+	}
+	public TaskPriority getPriority() {
+		return priority;
+	}
+	public void setPriority(TaskPriority priority) {
+		this.priority = priority;
 	}
 }
