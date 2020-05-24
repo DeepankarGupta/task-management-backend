@@ -8,6 +8,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.stackhack.taskmanagement.enums.TaskPriority;
@@ -39,7 +40,7 @@ public class TaskServiceImpl implements TaskService {
 	private ModelMapper modelMapper;
 	
 	@Override
-	public List<TaskResponse> getAllTask(TaskStatus status, Long categoryId, TaskPriority priority, String name) {
+	public List<TaskResponse> getAllTask(TaskStatus status, Long categoryId, TaskPriority priority, String name, Pageable pageable) {
 		ExampleMatcher matcher = ExampleMatcher.matchingAll().withMatcher("taskName", ExampleMatcher.GenericPropertyMatchers.contains().ignoreCase());
 		Task exampleTask = new Task();
 		exampleTask.setStatus(status);
@@ -50,7 +51,8 @@ public class TaskServiceImpl implements TaskService {
 			category.setCategoryId(categoryId);
 			exampleTask.setCategory(category);
 		}
-		return repo.findAll(Example.of(exampleTask, matcher)).stream().map(utility::convertToResponse).collect(Collectors.toList());
+		List<Task> tasks = repo.findAll(Example.of(exampleTask, matcher), pageable).getContent();
+		return tasks.stream().map(utility::convertToResponse).collect(Collectors.toList());
 	}
 
 	@Override

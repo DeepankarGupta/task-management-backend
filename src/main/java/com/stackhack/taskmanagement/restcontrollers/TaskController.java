@@ -5,6 +5,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,11 +33,12 @@ public class TaskController {
 	private TaskServiceImpl taskService;
 	
 	@GetMapping
-	public ResponseEntity<CustomResponse<List<TaskResponse>>> getAllTask(@RequestParam(required = false) TaskStatus status,
+	public ResponseEntity<CustomResponse<List<TaskResponse>>> getAllTask(@RequestParam(value = "status",required = false) TaskStatus status,
 																		 @RequestParam(required = false) Long categoryId,
 																		 @RequestParam(required = false) TaskPriority priority,
-																		 @RequestParam(required = false) String name) {
-		List<TaskResponse> taskList = taskService.getAllTask(status, categoryId, priority, name);
+																		 @RequestParam(required = false) String name,
+																		 Pageable pageable) {
+		List<TaskResponse> taskList = taskService.getAllTask(status, categoryId, priority, name, pageable);
 		String message = "Success";
 		if(taskList.isEmpty()) {
 			message = "No Records Found!!";
