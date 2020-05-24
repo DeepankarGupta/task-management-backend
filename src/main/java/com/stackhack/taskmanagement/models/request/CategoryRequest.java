@@ -1,34 +1,35 @@
 package com.stackhack.taskmanagement.models.request;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 public class CategoryRequest {
 	
-	@NotBlank(message = "Must not be blank")
-	private Long catrgoryId;
+	@NotNull(message = "Must not be blank")
+	private Long categoryId;
 	
 	@NotBlank(message = "Must not be blank")
 	@Size(max = 20, message = "Maximum length is 20")
-	private String catrgoryName;
+	private String categoryName;
 	
 	@Size(max = 100, message = "Maximum length is 100")
 	private String categoryDescription;
 
-	public Long getCatrgoryId() {
-		return catrgoryId;
+	public Long getCategoryId() {
+		return categoryId;
 	}
 
-	public void setCatrgoryId(Long catrgoryId) {
-		this.catrgoryId = catrgoryId;
+	public void setCategoryId(Long categoryId) {
+		this.categoryId = categoryId;
 	}
 
-	public String getCatrgoryName() {
-		return catrgoryName;
+	public String getCategoryName() {
+		return categoryName;
 	}
 
-	public void setCatrgoryName(String catrgoryName) {
-		this.catrgoryName = catrgoryName;
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
 	}
 
 	public String getCategoryDescription() {

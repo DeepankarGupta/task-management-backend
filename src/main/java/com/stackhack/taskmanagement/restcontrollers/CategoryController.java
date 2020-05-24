@@ -2,6 +2,8 @@ package com.stackhack.taskmanagement.restcontrollers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,14 +31,14 @@ public class CategoryController {
 	private CategoryService categoryService;
 	
 	@PostMapping
-	public ResponseEntity<CustomResponse<Long>> createCategory(@RequestBody NewCategoryRequest newCategoryRequest) {
+	public ResponseEntity<CustomResponse<Long>> createCategory(@Valid @RequestBody NewCategoryRequest newCategoryRequest) {
 		Long categoryId = categoryService.createCategory(newCategoryRequest);
 		CustomResponse<Long> response = new CustomResponse<Long>("Category created successfully", HttpStatus.CREATED, categoryId, null);
 		return new ResponseEntity<CustomResponse<Long>>(response, response.getHttpStatus());
 	}
 	
 	@PutMapping("/{categoryId}")
-	public ResponseEntity<CustomResponse<CategoryResponse>> editCategory(@RequestBody CategoryRequest categoryRequest) {
+	public ResponseEntity<CustomResponse<CategoryResponse>> editCategory(@Valid @RequestBody CategoryRequest categoryRequest) {
 		CategoryResponse categoryResposne = categoryService.editCategory(categoryRequest);
 		CustomResponse<CategoryResponse> response = new CustomResponse<CategoryResponse>("Category edited successfully", HttpStatus.OK, categoryResposne, null);
 		return new ResponseEntity<CustomResponse<CategoryResponse>>(response, response.getHttpStatus());

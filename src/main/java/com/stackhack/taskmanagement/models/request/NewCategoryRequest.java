@@ -7,17 +7,17 @@ public class NewCategoryRequest {
 	
 	@NotBlank(message = "Must not be blank")
 	@Size(max = 20, message = "Maximum length is 20")
-	private String catrgoryName;
+	private String categoryName;
 	
 	@Size(max = 100, message = "Maximum length is 100")
 	private String categoryDescription;
 	
-	public String getCatrgoryName() {
-		return catrgoryName;
+	public String getCategoryName() {
+		return categoryName;
 	}
 
-	public void setCatrgoryName(String catrgoryName) {
-		this.catrgoryName = catrgoryName;
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
 	}
 
 	public String getCategoryDescription() {

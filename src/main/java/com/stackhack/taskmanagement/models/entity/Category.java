@@ -17,10 +17,10 @@ public class Category {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long catrgoryId;
+	private Long categoryId;
 	
 	@Column(nullable = false)
-	private String catrgoryName;
+	private String categoryName;
 	
 	@Column
 	private String categoryDescription;
@@ -29,20 +29,20 @@ public class Category {
 	@OneToMany(mappedBy = "category")
 	private List<Task> tasks = new ArrayList<Task>();
 
-	public Long getCatrgoryId() {
-		return catrgoryId;
+	public Long getCategoryId() {
+		return categoryId;
 	}
 
-	public void setCatrgoryId(Long catrgoryId) {
-		this.catrgoryId = catrgoryId;
+	public void setCategoryId(Long categoryId) {
+		this.categoryId = categoryId;
 	}
 
-	public String getCatrgoryName() {
-		return catrgoryName;
+	public String getCategoryName() {
+		return categoryName;
 	}
 
-	public void setCatrgoryName(String catrgoryName) {
-		this.catrgoryName = catrgoryName;
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
 	}
 
 	public String getCategoryDescription() {

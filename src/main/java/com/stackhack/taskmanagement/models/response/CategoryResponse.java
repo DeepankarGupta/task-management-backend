@@ -2,24 +2,24 @@ package com.stackhack.taskmanagement.models.response;
 
 public class CategoryResponse {
 	
-	private Long catrgoryId;
-	private String catrgoryName;
+	private Long categoryId;
+	private String categoryName;
 	private String categoryDescription;
 
-	public Long getCatrgoryId() {
-		return catrgoryId;
+	public Long getCategoryId() {
+		return categoryId;
 	}
 
-	public void setCatrgoryId(Long catrgoryId) {
-		this.catrgoryId = catrgoryId;
+	public void setCategoryId(Long categoryId) {
+		this.categoryId = categoryId;
 	}
 
-	public String getCatrgoryName() {
-		return catrgoryName;
+	public String getCategoryName() {
+		return categoryName;
 	}
 
-	public void setCatrgoryName(String catrgoryName) {
-		this.catrgoryName = catrgoryName;
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
 	}
 
 	public String getCategoryDescription() {

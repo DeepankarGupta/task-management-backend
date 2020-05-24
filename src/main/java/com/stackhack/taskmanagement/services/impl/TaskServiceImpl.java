@@ -47,7 +47,7 @@ public class TaskServiceImpl implements TaskService {
 		exampleTask.setTaskName(name);
 		if(categoryId != null) {
 			Category category = new Category();
-			category.setCatrgoryId(categoryId);
+			category.setCategoryId(categoryId);
 			exampleTask.setCategory(category);
 		}
 		return repo.findAll(Example.of(exampleTask, matcher)).stream().map(utility::convertToResponse).collect(Collectors.toList());

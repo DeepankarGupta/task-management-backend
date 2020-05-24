@@ -29,7 +29,7 @@ public class CategoryServiceImpl implements CategoryService {
 	public Long createCategory(NewCategoryRequest newCategoryRequest) {
 		Category category = modelMapper.map(newCategoryRequest, Category.class);
 		category = categoryRepository.save(category);
-		return category.getCatrgoryId();
+		return category.getCategoryId();
 	}
 	
 	@Override
@@ -44,7 +44,7 @@ public class CategoryServiceImpl implements CategoryService {
 		Optional<Category> category = categoryRepository.findById(categoryId);
 		category.orElseThrow(() -> new ResourceNotFoundException("Category with ID: " + categoryId + " does not exist"));
 		categoryRepository.deleteById(categoryId);
-		return category.get().getCatrgoryId();
+		return category.get().getCategoryId();
 	}
 	
 	@Override
