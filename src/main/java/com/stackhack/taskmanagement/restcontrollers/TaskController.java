@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.stackhack.taskmanagement.enums.TaskPriority;
 import com.stackhack.taskmanagement.enums.TaskStatus;
 import com.stackhack.taskmanagement.models.request.NewTaskRequest;
 import com.stackhack.taskmanagement.models.request.TaskRequest;
@@ -31,9 +32,12 @@ public class TaskController {
 	private TaskServiceImpl taskService;
 	
 	@GetMapping
-	public ResponseEntity<CustomResponse<List<TaskResponse>>> getAllTask(@RequestParam TaskStatus status) {
-		List<TaskResponse> taskList = taskService.getAllTask(status);
-		String message = "";
+	public ResponseEntity<CustomResponse<List<TaskResponse>>> getAllTask(@RequestParam(required = false) TaskStatus status,
+																		 @RequestParam(required = false) Long categoryId,
+																		 @RequestParam(required = false) TaskPriority priority,
+																		 @RequestParam(required = false) String name) {
+		List<TaskResponse> taskList = taskService.getAllTask(status, categoryId, priority, name);
+		String message = "Success";
 		if(taskList.isEmpty()) {
 			message = "No Records Found!!";
 		}
@@ -44,7 +48,7 @@ public class TaskController {
 	@GetMapping("/{taskId}")
 	public ResponseEntity<CustomResponse<TaskResponse>> getTask(@PathVariable Long taskId) {
 		TaskResponse taskResponse = taskService.getTaskById(taskId);
-		CustomResponse<TaskResponse> response = new CustomResponse<TaskResponse>("", HttpStatus.OK, taskResponse, null);
+		CustomResponse<TaskResponse> response = new CustomResponse<TaskResponse>("Success", HttpStatus.OK, taskResponse, null);
 		return new ResponseEntity<CustomResponse<TaskResponse>>(response, response.getHttpStatus());
 	}
 

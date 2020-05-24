@@ -20,7 +20,7 @@ public class Task {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO )
-	private long Id;
+	private Long Id;
 	
 	@Column(name="task_name",nullable = false,length = 30)
 	private String taskName;
@@ -45,11 +45,11 @@ public class Task {
 	@JoinColumn(name = "category_id")
 	private Category category;
 
-	public long getId() {
+	public Long getId() {
 		return Id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		Id = id;
 	}
 
