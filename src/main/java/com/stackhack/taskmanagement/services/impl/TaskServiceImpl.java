@@ -7,8 +7,10 @@ import java.util.stream.Collectors;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Service;
 
+import com.stackhack.taskmanagement.enums.TaskPriority;
 import com.stackhack.taskmanagement.enums.TaskStatus;
 import com.stackhack.taskmanagement.exceptions.ResourceNotFoundException;
 import com.stackhack.taskmanagement.models.entity.Category;
@@ -37,9 +39,18 @@ public class TaskServiceImpl implements TaskService {
 	private ModelMapper modelMapper;
 	
 	@Override
-	public List<TaskResponse> getAllTask(TaskStatus status) {
-		return repo.findByStatus(status).stream().map(utility::convertToResponse)
-				.collect(Collectors.toList());
+	public List<TaskResponse> getAllTask(TaskStatus status, Long categoryId, TaskPriority priority, String name) {
+		ExampleMatcher matcher = ExampleMatcher.matchingAll().withMatcher("taskName", ExampleMatcher.GenericPropertyMatchers.contains().ignoreCase());
+		Task exampleTask = new Task();
+		exampleTask.setStatus(status);
+		exampleTask.setPriority(priority);
+		exampleTask.setTaskName(name);
+		if(categoryId != null) {
+			Category category = new Category();
+			category.setCatrgoryId(categoryId);
+			exampleTask.setCategory(category);
+		}
+		return repo.findAll(Example.of(exampleTask, matcher)).stream().map(utility::convertToResponse).collect(Collectors.toList());
 	}
 
 	@Override
@@ -64,6 +75,9 @@ public class TaskServiceImpl implements TaskService {
 	@Override
 	public TaskResponse modifyTask(TaskRequest taskRequest) {
 		Task task = utility.convertToEntity(taskRequest);
+		Optional<Category> category  = categoryRepository.findById(taskRequest.getCategoryId());
+		category.orElseThrow(() -> new ResourceNotFoundException("Category with ID: " + taskRequest.getCategoryId() + " does not exist"));
+		task.setCategory(category.get());
 		task = repo.save(task);
 		return utility.convertToResponse(task);
 	}
@@ -75,5 +89,4 @@ public class TaskServiceImpl implements TaskService {
 		repo.deleteById(id);
 		return utility.convertToResponse(task.get());
 	}
-
 }

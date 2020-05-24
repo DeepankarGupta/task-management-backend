@@ -7,7 +7,7 @@ import com.stackhack.taskmanagement.enums.TaskStatus;
 
 public class TaskRequest {
 	
-	private long Id;
+	private Long Id;
 	private String taskName;
 	private String description;
 	private TaskStatus status;
@@ -15,10 +15,10 @@ public class TaskRequest {
 	private Date dueDate;
 	private Long categoryId;
 	
-	public long getId() {
+	public Long getId() {
 		return Id;
 	}
-	public void setId(long id) {
+	public void setId(Long id) {
 		Id = id;
 	}
 	public String getTaskName() {
