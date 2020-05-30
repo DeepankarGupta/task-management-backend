@@ -5,8 +5,10 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,43 +28,48 @@ import com.stackhack.taskmanagement.services.impl.TaskServiceImpl;
 
 @RestController
 @RequestMapping("api/tasks")
+@CrossOrigin
 public class TaskController {
-	
+
 	@Autowired
 	private TaskServiceImpl taskService;
-	
+
 	@GetMapping
-	public ResponseEntity<CustomResponse<List<TaskResponse>>> getAllTask(@RequestParam(required = false) TaskStatus status,
-																		 @RequestParam(required = false) Long categoryId,
-																		 @RequestParam(required = false) TaskPriority priority,
-																		 @RequestParam(required = false) String name) {
-		List<TaskResponse> taskList = taskService.getAllTask(status, categoryId, priority, name);
+	public ResponseEntity<CustomResponse<List<TaskResponse>>> getAllTask(
+			@RequestParam(value = "status", required = false) TaskStatus status,
+			@RequestParam(required = false) Long categoryId, @RequestParam(required = false) TaskPriority priority,
+			@RequestParam(required = false) String name, Pageable pageable) {
+		List<TaskResponse> taskList = taskService.getAllTask(status, categoryId, priority, name, pageable);
 		String message = "Success";
-		if(taskList.isEmpty()) {
+		if (taskList.isEmpty()) {
 			message = "No Records Found!!";
 		}
-		CustomResponse<List<TaskResponse>> response = new CustomResponse<List<TaskResponse>>(message, HttpStatus.OK, taskList, null);
+		CustomResponse<List<TaskResponse>> response = new CustomResponse<List<TaskResponse>>(message, HttpStatus.OK,
+				taskList, null);
 		return new ResponseEntity<CustomResponse<List<TaskResponse>>>(response, response.getHttpStatus());
 	}
 
 	@GetMapping("/{taskId}")
 	public ResponseEntity<CustomResponse<TaskResponse>> getTask(@PathVariable Long taskId) {
 		TaskResponse taskResponse = taskService.getTaskById(taskId);
-		CustomResponse<TaskResponse> response = new CustomResponse<TaskResponse>("Success", HttpStatus.OK, taskResponse, null);
+		CustomResponse<TaskResponse> response = new CustomResponse<TaskResponse>("Success", HttpStatus.OK, taskResponse,
+				null);
 		return new ResponseEntity<CustomResponse<TaskResponse>>(response, response.getHttpStatus());
 	}
 
 	@PostMapping
 	public ResponseEntity<CustomResponse<Long>> addTask(@Valid @RequestBody NewTaskRequest taskRequest) {
 		Long taskId = taskService.createTask(taskRequest);
-		CustomResponse<Long> response = new CustomResponse<Long>("Task created succesfully", HttpStatus.CREATED, taskId, null);
+		CustomResponse<Long> response = new CustomResponse<Long>("Task created succesfully", HttpStatus.CREATED, taskId,
+				null);
 		return new ResponseEntity<CustomResponse<Long>>(response, response.getHttpStatus());
 	}
 
 	@PutMapping("/{taskId}")
 	public ResponseEntity<CustomResponse<TaskResponse>> updateTask(@Valid @RequestBody TaskRequest taskRequest) {
 		TaskResponse taskResponse = taskService.modifyTask(taskRequest);
-		CustomResponse<TaskResponse> response = new CustomResponse<TaskResponse>("Task updated succesfully", HttpStatus.OK, taskResponse, null);
+		CustomResponse<TaskResponse> response = new CustomResponse<TaskResponse>("Task updated succesfully",
+				HttpStatus.OK, taskResponse, null);
 		return new ResponseEntity<CustomResponse<TaskResponse>>(response, response.getHttpStatus());
 	}
 }
