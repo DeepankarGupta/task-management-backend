@@ -1,5 +1,6 @@
 package com.stackhack.taskmanagement.services.impl;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -80,6 +81,11 @@ public class TaskServiceImpl implements TaskService {
 		Optional<Category> category  = categoryRepository.findById(taskRequest.getCategoryId());
 		category.orElseThrow(() -> new ResourceNotFoundException("Category with ID: " + taskRequest.getCategoryId() + " does not exist"));
 		task.setCategory(category.get());
+		if(task.getStatus().equals(TaskStatus.DONE)) {
+			task.setCompletionDate(new Date());
+		} else {
+			task.setCompletionDate(null);
+		}
 		task = repo.save(task);
 		return utility.convertToResponse(task);
 	}

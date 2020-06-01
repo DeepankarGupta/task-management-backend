@@ -37,6 +37,9 @@ public class Task {
 	@Column(name="due_date",nullable = false)
 	private Date dueDate;
 	
+	@Column(name="completion_date",nullable = false)
+	private Date completionDate;
+	
 	@CreationTimestamp
 	@Column(name = "creation_date")
 	private Date creationDate;
@@ -91,6 +94,14 @@ public class Task {
 
 	public void setDueDate(Date dueDate) {
 		this.dueDate = dueDate;
+	}
+	
+	public Date getCompletionDate() {
+		return completionDate;
+	}
+
+	public void setCompletionDate(Date completionDate) {
+		this.completionDate = completionDate;
 	}
 
 	public Date getCreationDate() {

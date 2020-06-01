@@ -13,6 +13,7 @@ public class TaskResponse {
 	private TaskStatus status;
 	private TaskPriority priority;
 	private Date dueDate;
+	private Date completionDate;
 	private Date creationDate;
 	private CategoryResponse category;
 	
@@ -63,5 +64,11 @@ public class TaskResponse {
 	}
 	public void setCategory(CategoryResponse category) {
 		this.category = category;
+	}
+	public Date getCompletionDate() {
+		return completionDate;
+	}
+	public void setCompletionDate(Date completionDate) {
+		this.completionDate = completionDate;
 	}
 }
