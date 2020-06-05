@@ -37,7 +37,7 @@ public class Task {
 	@Column(name="due_date",nullable = false)
 	private Date dueDate;
 	
-	@Column(name="completion_date",nullable = false)
+	@Column(name="completion_date")
 	private Date completionDate;
 	
 	@CreationTimestamp

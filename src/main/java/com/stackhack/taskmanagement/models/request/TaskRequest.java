@@ -2,17 +2,34 @@ package com.stackhack.taskmanagement.models.request;
 
 import java.util.Date;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 import com.stackhack.taskmanagement.enums.TaskPriority;
 import com.stackhack.taskmanagement.enums.TaskStatus;
 
 public class TaskRequest {
-	
 	private Long Id;
+	
+	@NotBlank(message = "Must not be blank")
+	@Size(max = 30, message = "Maximum length is 30")
 	private String taskName;
+	
+	@NotBlank(message = "Must not be blank")
+	@Size(max = 100, message = "Maximum length is 100")
 	private String description;
+	
+	@NotNull(message = "Must not be blank")
 	private TaskStatus status;
+	
+	@NotNull(message = "Must not be blank")
 	private TaskPriority priority;
+	
+	@NotNull(message = "Must not be blank")
 	private Date dueDate;
+	
+	@NotNull(message = "Must not be blank")
 	private Long categoryId;
 	
 	public Long getId() {
