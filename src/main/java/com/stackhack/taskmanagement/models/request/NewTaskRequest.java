@@ -7,10 +7,8 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.stackhack.taskmanagement.enums.TaskPriority;
-import com.stackhack.taskmanagement.enums.TaskStatus;
 
-public class TaskRequest {
-	private Long Id;
+public class NewTaskRequest {
 	
 	@NotBlank(message = "Must not be blank")
 	@Size(max = 30, message = "Maximum length is 30")
@@ -21,23 +19,14 @@ public class TaskRequest {
 	private String description;
 	
 	@NotNull(message = "Must not be blank")
-	private TaskStatus status;
-	
-	@NotNull(message = "Must not be blank")
-	private TaskPriority priority;
-	
-	@NotNull(message = "Must not be blank")
 	private Date dueDate;
 	
 	@NotNull(message = "Must not be blank")
 	private Long categoryId;
 	
-	public Long getId() {
-		return Id;
-	}
-	public void setId(Long id) {
-		Id = id;
-	}
+	@NotNull(message = "Must not be blank")
+	private TaskPriority priority;
+	
 	public String getTaskName() {
 		return taskName;
 	}
@@ -50,18 +39,6 @@ public class TaskRequest {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public TaskStatus getStatus() {
-		return status;
-	}
-	public void setStatus(TaskStatus status) {
-		this.status = status;
-	}
-	public TaskPriority getPriority() {
-		return priority;
-	}
-	public void setPriority(TaskPriority priority) {
-		this.priority = priority;
-	}
 	public Date getDueDate() {
 		return dueDate;
 	}
@@ -73,5 +50,11 @@ public class TaskRequest {
 	}
 	public void setCategoryId(Long categoryId) {
 		this.categoryId = categoryId;
+	}
+	public TaskPriority getPriority() {
+		return priority;
+	}
+	public void setPriority(TaskPriority priority) {
+		this.priority = priority;
 	}
 }
