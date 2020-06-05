@@ -17,29 +17,29 @@ import com.stackhack.taskmanagement.enums.TaskStatus;
 
 @Entity
 public class Task {
-	
+
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO )
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long Id;
-	
-	@Column(name="task_name",nullable = false,length = 30)
+
+	@Column(name = "task_name", nullable = false, length = 30)
 	private String taskName;
-	
-	@Column(name="task_desc",nullable = false,length = 100)
+
+	@Column(name = "task_desc", nullable = false, length = 100)
 	private String description;
-	
+
 	@Column(nullable = false)
 	private TaskStatus status;
-	
+
 	@Column(nullable = false)
 	private TaskPriority priority;
-	
-	@Column(name="due_date",nullable = false)
+
+	@Column(name = "due_date", nullable = false)
 	private Date dueDate;
-	
-	@Column(name="completion_date")
+
+	@Column(name = "completion_date")
 	private Date completionDate;
-	
+
 	@CreationTimestamp
 	@Column(name = "creation_date")
 	private Date creationDate;
@@ -71,7 +71,7 @@ public class Task {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	
+
 	public TaskStatus getStatus() {
 		return status;
 	}
@@ -95,7 +95,7 @@ public class Task {
 	public void setDueDate(Date dueDate) {
 		this.dueDate = dueDate;
 	}
-	
+
 	public Date getCompletionDate() {
 		return completionDate;
 	}
