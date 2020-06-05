@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -35,9 +37,11 @@ public class Task {
 	private TaskPriority priority;
 
 	@Column(name = "due_date", nullable = false)
+	@Temporal(TemporalType.DATE)
 	private Date dueDate;
 
 	@Column(name = "completion_date")
+	@Temporal(TemporalType.DATE)
 	private Date completionDate;
 
 	@CreationTimestamp
